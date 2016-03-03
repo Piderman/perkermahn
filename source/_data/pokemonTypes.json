@@ -1,0 +1,251 @@
+[
+  {
+    "title": "normal",
+    "effective" : [],
+    "weak" : [
+      "rock",
+      "steel"
+    ],
+    "useless" : [
+      "ghost"
+    ]
+  },
+  {
+    "title": "fighting",
+    "effective" : [
+      "normal",
+      "rock",
+      "steel",
+      "ice",
+      "dark"
+    ],
+    "weak" : [
+      "flying",
+      "poison",
+      "bug",
+      "psychic"
+    ],
+    "useless" : [
+      "ghost"
+    ]
+  },
+  {
+    "title": "flying",
+    "effective" : [
+      "fighting",
+      "bug",
+      "grass"
+    ],
+    "weak" : [
+      "rock",
+      "steel",
+      "electric"
+    ],
+    "useless" : []
+  },
+  {
+    "title": "poison",
+    "effective" : [
+      "grass"
+    ],
+    "weak" : [
+      "poison",
+      "ground",
+      "rock",
+      "ghost"
+    ],
+    "useless" : []
+  },
+  {
+    "title": "ground",
+    "effective" : [
+      "poison",
+      "rock",
+      "steel",
+      "fire",
+      "electric"
+    ],
+    "weak" : [
+      "bug",
+      "grass"
+    ],
+    "useless" : [
+      "flying"
+    ]
+  },
+  {
+    "title": "rock",
+    "effective" : [
+      "flying",
+      "bug",
+      "fire",
+      "ice"
+    ],
+    "weak" : [
+      "fighting",
+      "ground",
+      "steel"
+    ],
+    "useless" : []
+  },
+  {
+    "title": "bug",
+    "effective" : [
+      "grass",
+      "psychic",
+      "dark"
+    ],
+    "weak" : [
+      "fighting",
+      "flying",
+      "poison",
+      "ghost",
+      "steel",
+      "fire"
+    ],
+    "useless" : []
+  },
+  {
+    "title": "ghost",
+    "effective" : [
+      "ghost",
+      "psychic"
+    ],
+    "weak" : [
+      "steel",
+      "dark"
+    ],
+    "useless" : [
+      "normal"
+    ]
+  },
+  {
+    "title": "steel",
+    "effective" : [
+      "rock",
+      "ice"
+    ],
+    "weak" : [
+      "steel",
+      "fire",
+      "water",
+      "electric"
+    ],
+    "useless" : []
+  },
+  {
+    "title": "fire",
+    "effective" : [
+      "bug",
+      "steel",
+      "grass"
+    ],
+    "weak" : [
+      "rock",
+      "fire",
+      "water",
+      "dragon"
+    ],
+    "useless" : []
+  },
+  {
+    "title": "water",
+    "effective" : [
+      "ground",
+      "rock",
+      "fire"
+    ],
+    "weak" : [
+      "water",
+      "grass",
+      "dragon"
+    ],
+    "useless" : []
+  },
+  {
+    "title": "grass",
+    "effective" : [
+      "ground",
+      "rock",
+      "water"
+    ],
+    "weak" : [
+      "flying",
+      "poison",
+      "bug",
+      "steel",
+      "fire",
+      "grass",
+      "dragon"
+    ],
+    "useless" : []
+  },
+  {
+    "title": "electric",
+    "effective" : [
+      "flying",
+      "water"
+    ],
+    "weak" : [
+      "grass",
+      "electric",
+      "dragon"
+    ],
+    "useless" : [
+      "ground"
+    ]
+  },
+  {
+    "title": "psychic",
+    "effective" : [
+      "fighting",
+      "poison"
+    ],
+    "weak" : [
+      "steel",
+      "psychic"
+    ],
+    "useless" : [
+      "dark"
+    ]
+  },
+  {
+    "title": "ice",
+    "effective" : [
+      "flying",
+      "ground",
+      "grass",
+      "dragon"
+    ],
+    "weak" : [
+      "steel",
+      "fire",
+      "water",
+      "ice"
+    ],
+    "useless" : []
+  },
+  {
+    "title": "dragon",
+    "effective" : [
+      "dragon"
+    ],
+    "weak" : [
+      "steel"
+    ],
+    "useless" : []
+  },
+  {
+    "title": "dark",
+    "effective" : [
+      "dark",
+      "psychic"
+    ],
+    "weak" : [
+      "fighting",
+      "steel",
+      "dark"
+    ],
+    "useless" : []
+  }
+]
