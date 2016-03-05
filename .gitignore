@@ -3,5 +3,6 @@ bower_components/
 themes/landscape
 
 # generated
-public/
+dist/
 db.json
+coverage/
