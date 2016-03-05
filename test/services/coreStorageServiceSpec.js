@@ -1,16 +1,31 @@
 // scaffold for angulars
 var coreStorage;
+var $httpBackend;
+var mockAPI;
+var rEndpoint = /(pokeapi)/;
 
 describe('service: coreStorage', function() {
   beforeEach(module('pkmn'));
 
-  beforeEach(inject(function(_coreStorage_){
-    coreStorage = _coreStorage_;
+  beforeEach(inject(function(_coreStorage_, _$httpBackend_) {
+    $httpBackend = _$httpBackend_;
+    $httpBackend.when('GET', rEndpoint)
+      .respond({
+        results: [
+          {"name": "bulbasaur", "url": "..."},
+          {"name": "ivysaur", "url": "..."},
+          {"name": "venusaur", "url": "..."}
+        ]
+    });
 
+    coreStorage = _coreStorage_;
   }));
 
   afterEach(function(){
     localStorage.removeItem('PKMN');
+
+    $httpBackend.verifyNoOutstandingExpectation();
+    $httpBackend.verifyNoOutstandingRequest();
   });
 
   it('should get pkmn from local storage', function() {
@@ -22,21 +37,15 @@ describe('service: coreStorage', function() {
   });
 
   it('should hit api if no local storage', function() {
-    var coreStorage = {
-      getAllPkmn : function () {
-        return [
-          {"name": "bulbasaur", "url": "..."},
-          {"name": "ivysaur", "url": "..."},
-          {"name": "venusaur", "url": "..."}
-        ]
-      }
-    };
-    spyOn(coreStorage, 'getAllPkmn').and.callThrough();
-
-    var results = coreStorage.getAllPkmn();
-
     expect(localStorage.PKMN).toBeUndefined();
-    expect(coreStorage.getAllPkmn).toHaveBeenCalled();
-    expect(results.length).toBe(3);
+    coreStorage.getAllPkmn();
+    $httpBackend.flush();
+
+    // even though storage has updated, it seems we need
+    // to call again to get result
+    var result = coreStorage.getAllPkmn();
+
+    expect(localStorage.PKMN).not.toBeUndefined();
+    expect(result[1].name).toBe('ivysaur');
   });
 });

@@ -32,8 +32,9 @@ angular.module('Services')
         getPkmnFromAPI()
           .then(function(result) {
             var pkmns = JSON.stringify(result.data.results);
+
             localStorage.setItem('PKMN', pkmns);
-            console.log('got pkmn');
+            return getPkmnFromLocal();
           });
 
       } else {
