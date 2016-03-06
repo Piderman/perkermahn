@@ -7,29 +7,32 @@ angular.module('Pokemon')
     var self = this;
 
     // todo, doesn't work on first run, how to fire after callback?
-    $scope.PKMN = coreStorage.getAllPkmn();
+    // $scope.PKMN = coreStorage.getAllPkmn();
     $scope.opponent = {};
+    $scope.opponent.id = null;
+    $scope.opponent.name = null;
+    $scope.opponent.types = [];
+    $scope.opponent.effectiveVs = null;
 
-    $scope.getSummaryByName = function (name) {
-      infoServices.getPkmnByName(name).then(function(result){
-        $scope.opponent.name = name;
-        $scope.opponent.type = _.map(result.data.types, 'type.name');
+    // note: can be name or id
+    self.getOpponentInfo = function(name) {
+      infoServices.getPkmnByName(name).then(function (response) {
+        var result = response.data;
 
-        $scope.opponent.effectiveTo = self.getOppenentEffectiveSummary(name);
+        $scope.opponent.id = result.id;
+        $scope.opponent.name = result.name;
+        $scope.opponent.types = _.map(result.types, 'type.name');
       });
-
     };
 
-    self.getOppenentEffectiveSummary = function(name){
-      infoServices.getTypeByName(name)
-        .then(function(result) {
-          var dmgType = _.find(result.data.damage_relations, 'double_damage_to');
-          var effective = _.map(dmgType.double_damage_to, 'name');
+    self.getTypeEffectiveSummary = function(type){
+      var doubleDamage;
 
-          console.log('app ctrl: ', effective);
+      infoServices.getTypeByName(type).then(function (response) {
+        doubleDamage = _.map(response.data.damage_relations.double_damage_to, 'name');
+        $scope.opponent.effectiveVs = doubleDamage;
+      });
 
-          return effective;
-        });
     };
 
     this.getOppenentWeaknessSummary = function(name){

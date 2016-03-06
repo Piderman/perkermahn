@@ -24,7 +24,15 @@ describe('ctrl: oppenentController', function() {
     $rootScope = _$rootScope_;
     $scope = $rootScope.$new();
 
-    $httpBackend.when('GET', mockTypes.endPoint.all).respond(mockOppenentResponse);
+    // local storage
+    $httpBackend.when('GET', mockPkmn.endPoint.all).respond(mockOppenentResponse);
+
+    // pkmn lookup
+    $httpBackend.when('GET', mockPkmn.endPoint.byName).respond(mockPkmn.results.byName);
+    $httpBackend.when('GET', mockPkmn.endPoint.byId).respond(mockPkmn.results.byId);
+    $httpBackend.when('GET', mockPkmn.endPoint.fail).respond(mockPkmn.results.fail);
+
+    // effectiveness
     $httpBackend.when('GET', mockTypes.endPoint.water).respond(mockTypes.results.water);
     $httpBackend.when('GET', mockTypes.endPoint.normal).respond(mockTypes.results.normal);
     $controller = _$controller_;
@@ -40,13 +48,28 @@ describe('ctrl: oppenentController', function() {
     $httpBackend.verifyNoOutstandingRequest();
   });
 
-  it('should load oppenent when selected'/*, function () {
-    // todo: error on '/type/squirtle' but thats not an API call in this test
-    $scope.getSummaryByName('squirtle');
+  it('should load oppenent by name', function () {
+    ctrl.getOpponentInfo('blastoise');
     $httpBackend.flush();
 
-    expect($scope.opponent.type).toBeDefined();
-  }*/);
+    expect($scope.opponent.id).toBe(9);
+    expect($scope.opponent.name).toBeTruthy(true);
+    expect($scope.opponent.types.length).toBeGreaterThan(0);
+
+    $scope.opponent = {};
+    ctrl.getOpponentInfo('canta-nope');
+    $httpBackend.flush();
+    expect($scope.opponent.name).toBeUndefined();
+  });
+
+  it('should load oppenent by ID', function () {
+    ctrl.getOpponentInfo('25');
+    $httpBackend.flush();
+
+    expect($scope.opponent.id).toBeTruthy();
+    expect($scope.opponent.name).toBe('pikachu');
+    expect($scope.opponent.types.length).toBeGreaterThan(0);
+  });
 
   it('should show oppenent type effectiveness', function() {
     var waterType = ctrl.getOppenentEffectiveSummary('water');
