@@ -6,13 +6,13 @@ angular.module('Services')
       return $http({
         method: 'GET',
         url: API_ROUTE + 'pokemon/' + name
-      })
+      });
     };
 
     this.getTypeByName = function (name) {
       return $http({
         method: 'GET',
         url: API_ROUTE + 'type/' + name
-      })
+      });
     };
   }]);

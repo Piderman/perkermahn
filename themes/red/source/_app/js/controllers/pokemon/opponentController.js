@@ -7,12 +7,11 @@ angular.module('Pokemon')
     var self = this;
 
     // todo, doesn't work on first run, how to fire after callback?
-    // $scope.PKMN = coreStorage.getAllPkmn();
+    $scope.PKMN = coreStorage.getAllPkmn();
     $scope.opponent = {};
     $scope.opponent.id = null;
     $scope.opponent.name = null;
     $scope.opponent.types = [];
-    $scope.opponent.effectiveVs = null;
 
     // note: can be name or id
     self.getOpponentInfo = function(name) {
@@ -26,21 +25,35 @@ angular.module('Pokemon')
     };
 
     self.getTypeEffectiveSummary = function(type){
-      var doubleDamage;
+      var doubleDamageTo;
+      var halfDamageFrom;
+      var noDamageFrom;
 
       infoServices.getTypeByName(type).then(function (response) {
-        doubleDamage = _.map(response.data.damage_relations.double_damage_to, 'name');
-        $scope.opponent.effectiveVs = doubleDamage;
+        doubleDamageTo = _.map(response.data.damage_relations.double_damage_to, 'name');
+        halfDamageFrom = _.map(response.data.damage_relations.half_damage_from, 'name');
+        noDamageFrom = _.map(response.data.damage_relations.no_damage_from, 'name');
+
+        $scope.opponent.doubleDamageTo = doubleDamageTo;
+        $scope.opponent.halfDamageFrom = halfDamageFrom;
+        $scope.opponent.noDamageFrom = noDamageFrom;
       });
-
     };
 
-    this.getOppenentWeaknessSummary = function(name){
-      return false;
-    };
+    this.getOppenentWeaknessSummary = function(type){
+      var doubleDamageFrom;
+      var halfDamageTo;
+      var noDamageTo;
 
-    this.getOppenentUselessnessSummary = function(name){
-      return false;
+      infoServices.getTypeByName(type).then(function (response) {
+        doubleDamageFrom = _.map(response.data.damage_relations.double_damage_from, 'name');
+        halfDamageTo = _.map(response.data.damage_relations.half_damage_to, 'name');
+        noDamageTo = _.map(response.data.damage_relations.no_damage_to, 'name');
+
+        $scope.opponent.doubleDamageFrom = doubleDamageFrom;
+        $scope.opponent.halfDamageTo = halfDamageTo;
+        $scope.opponent.noDamageTo = noDamageTo;
+      });
     };
   }
 ]);

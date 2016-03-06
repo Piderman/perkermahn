@@ -74,15 +74,22 @@ describe('ctrl: oppenentController', function() {
   it('should show oppenent type effectiveness', function() {
     ctrl.getTypeEffectiveSummary('water');
     $httpBackend.flush();
-    expect($scope.opponent.effectiveVs.length).toBeGreaterThan(0);
+    expect($scope.opponent.doubleDamageTo.length).toBeGreaterThan(0);
+    expect($scope.opponent.halfDamageFrom.length).toBeGreaterThan(0);
 
     ctrl.getTypeEffectiveSummary('normal');
     $httpBackend.flush();
 
-    expect($scope.opponent.effectiveVs.length).toBe(0);
+    expect($scope.opponent.doubleDamageTo.length).toBe(0);
+    expect($scope.opponent.halfDamageFrom.length).toBe(0);
   });
 
-  it('should show oppenent type weakness');
+  it('should show oppenent type weaknesses', function (){
+    ctrl.getOppenentWeaknessSummary('water');
+    $httpBackend.flush();
 
-  it('should show oppenent type uselessness');
+    expect($scope.opponent.doubleDamageFrom.length).toBeGreaterThan(0);
+    expect($scope.opponent.halfDamageTo.length).toBeGreaterThan(0);
+    expect($scope.opponent.noDamageTo.length).toBe(0);
+  });
 });
