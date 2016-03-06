@@ -49,7 +49,7 @@ describe('ctrl: oppenentController', function() {
   });
 
   it('should load oppenent by name', function () {
-    ctrl.getOpponentInfo('blastoise');
+    $scope.getOpponentInfo('blastoise');
     $httpBackend.flush();
 
     expect($scope.opponent.id).toBe(9);
@@ -57,13 +57,13 @@ describe('ctrl: oppenentController', function() {
     expect($scope.opponent.types.length).toBeGreaterThan(0);
 
     $scope.opponent = {};
-    ctrl.getOpponentInfo('canta-nope');
+    $scope.getOpponentInfo('canta-nope');
     $httpBackend.flush();
     expect($scope.opponent.name).toBeUndefined();
   });
 
   it('should load oppenent by ID', function () {
-    ctrl.getOpponentInfo('25');
+    $scope.getOpponentInfo('25');
     $httpBackend.flush();
 
     expect($scope.opponent.id).toBeTruthy();
@@ -83,6 +83,11 @@ describe('ctrl: oppenentController', function() {
     expect($scope.opponent.doubleDamageTo.length).toBe(0);
     expect($scope.opponent.halfDamageFrom.length).toBe(0);
   });
+
+  it('should remove my type from effectiveness');
+
+  it('should work for multiple type pokemon');
+
 
   it('should show oppenent type weaknesses', function (){
     ctrl.getOppenentWeaknessSummary('water');

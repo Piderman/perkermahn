@@ -34,6 +34,7 @@ angular.module('Pokemon')
         halfDamageFrom = _.map(response.data.damage_relations.half_damage_from, 'name');
         noDamageFrom = _.map(response.data.damage_relations.no_damage_from, 'name');
 
+        // todo: remove own type from here?
         $scope.opponent.doubleDamageTo = doubleDamageTo;
         $scope.opponent.halfDamageFrom = halfDamageFrom;
         $scope.opponent.noDamageFrom = noDamageFrom;
@@ -50,6 +51,7 @@ angular.module('Pokemon')
         halfDamageTo = _.map(response.data.damage_relations.half_damage_to, 'name');
         noDamageTo = _.map(response.data.damage_relations.no_damage_to, 'name');
 
+        // todo: remove own type from here?
         $scope.opponent.doubleDamageFrom = doubleDamageFrom;
         $scope.opponent.halfDamageTo = halfDamageTo;
         $scope.opponent.noDamageTo = noDamageTo;
