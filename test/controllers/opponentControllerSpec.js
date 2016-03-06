@@ -72,17 +72,14 @@ describe('ctrl: oppenentController', function() {
   });
 
   it('should show oppenent type effectiveness', function() {
-    var waterType = ctrl.getOppenentEffectiveSummary('water');
-    var normalType = ctrl.getOppenentEffectiveSummary('normal');
+    ctrl.getTypeEffectiveSummary('water');
+    $httpBackend.flush();
+    expect($scope.opponent.effectiveVs.length).toBeGreaterThan(0);
+
+    ctrl.getTypeEffectiveSummary('normal');
     $httpBackend.flush();
 
-    // todo: doesn't return but controller log shows it
-    // console.log(waterType, normalType);
-
-    expect(waterType).not.toBeUndefined();
-    expect(normalType).not.toBeUndefined();
-    expect(waterType.length).toBe(3);
-    expect(normalType.length).toBe(0);
+    expect($scope.opponent.effectiveVs.length).toBe(0);
   });
 
   it('should show oppenent type weakness');
