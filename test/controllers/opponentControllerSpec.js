@@ -5,38 +5,12 @@ var $scope;
 var $httpBackend;
 var ctrl;
 
-var rEndpointPkmn = /pokemon\//;
-var rEndpointWater = /type\/water/;
-var rEndpointNormal = /type\/normal/;
-
 var mockOppenentResponse = {
   "name": "squirtle",
   "types": [{"type": {"name": "water"}}]
 };
 
-var mockOppenentWaterTypeResponse = {
-  "name": "water",
-  "damage_relations": [
-    {"no_damage_to": []},
-    {"half_damage_to": [{"name" : "grass"}]},
-    {"double_damage_to": [{"name" : "ground"}, {"name" : "rock"}, {"name" : "fire"}]},
-    {"no_damage_from": []},
-    {"half_damage_from": [{"name" : "steel"}]},
-    {"double_damage_from": [{"name" : "electric"}]},
-  ]
-};
 
-var mockOppenentNormalTypeResponse = {
-  "name": "water",
-  "damage_relations": [
-    {"no_damage_to": []},
-    {"half_damage_to": [{"name" : "grass"}]},
-    {"double_damage_to": []},
-    {"no_damage_from": []},
-    {"half_damage_from": [{"name" : "steel"}]},
-    {"double_damage_from": [{"name" : "electric"}]},
-  ]
-};
 
 describe('ctrl: oppenentController', function() {
   beforeEach(function(){
@@ -50,9 +24,9 @@ describe('ctrl: oppenentController', function() {
     $rootScope = _$rootScope_;
     $scope = $rootScope.$new();
 
-    $httpBackend.when('GET', rEndpointPkmn).respond(mockOppenentResponse);
-    $httpBackend.when('GET', rEndpointWater).respond(mockOppenentWaterTypeResponse);
-    $httpBackend.when('GET', rEndpointNormal).respond(mockOppenentNormalTypeResponse);
+    $httpBackend.when('GET', mockTypes.endPoint.all).respond(mockOppenentResponse);
+    $httpBackend.when('GET', mockTypes.endPoint.water).respond(mockTypes.results.water);
+    $httpBackend.when('GET', mockTypes.endPoint.normal).respond(mockTypes.results.normal);
     $controller = _$controller_;
 
     ctrl = $controller('opponentController', {

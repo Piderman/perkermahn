@@ -27,6 +27,7 @@ module.exports = function(config) {
       'themes/red/source/_app/js/**/!(app).js',
 
       // tests
+      'test/mocks/*.js',
       'test/**/*[sS]pec.js'
     ],
 
