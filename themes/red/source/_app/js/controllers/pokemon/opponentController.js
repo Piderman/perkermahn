@@ -8,6 +8,7 @@ angular.module('Pokemon')
 
     // todo, doesn't work on first run, how to fire after callback?
     $scope.PKMN = coreStorage.getAllPkmn();
+    // todo: move to storage
     $scope.TYPES = ["normal", "fighting", "flying", "poison", "ground", "rock", "bug", "ghost", "steel", "fire", "water", "grass", "electric", "psychic", "ice", "dragon", "dark"];
     $scope.opponent = {};
     $scope.opponent.id = null;
@@ -54,7 +55,7 @@ angular.module('Pokemon')
       var halfDamageFrom = [];
       var noDamageFrom = [];
 
-      if (typeof type === 'string') {
+      if (!Array.isArray(type)) {
         type = [type];
       }
 

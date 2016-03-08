@@ -34,7 +34,6 @@ describe('ctrl: oppenentController', function() {
 
     // effectiveness
     $httpBackend.when('GET', mockTypes.endPoint.electric).respond(mockTypes.results.electric);
-    // $httpBackend.when('GET', mockTypes.endPoint.normal).respond(mockTypes.results.normal);
     $httpBackend.when('GET', mockTypes.endPoint.poison).respond(mockTypes.results.poison);
     $httpBackend.when('GET', mockTypes.endPoint.ghost).respond(mockTypes.results.ghost);
     $controller = _$controller_;
@@ -77,6 +76,7 @@ describe('ctrl: oppenentController', function() {
   it('should show oppenent summary for single-types', function() {
     $scope.getOpponentInfo('25');
     $httpBackend.flush();
+
     expect($scope.opponent.doubleDamageTo.length).toBeGreaterThan(0);
     expect($scope.opponent.halfDamageTo.length).toBeGreaterThan(0);
     expect($scope.opponent.noDamageTo.length).toBeGreaterThan(0);
@@ -84,6 +84,18 @@ describe('ctrl: oppenentController', function() {
     expect($scope.opponent.doubleDamageFrom.length).toBeGreaterThan(0);
     expect($scope.opponent.halfDamageFrom.length).toBeGreaterThan(0);
     expect($scope.opponent.noDamageFrom.length).not.toBeNull();
+
+  });
+
+  it('should show summary by type only', function( ){
+    $scope.getTypeSummary(['poison']);
+    $httpBackend.flush();
+    expect($scope.opponent.halfDamageTo).toContain('rock');
+
+    $scope.getTypeSummary('electric');
+    $httpBackend.flush();
+    expect($scope.opponent.doubleDamageTo).toContain('water');
+    expect($scope.opponent.noDamageTo).toContain('ground');
   });
 
   it('should show oppenent summary by for dual-types', function(){
