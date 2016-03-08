@@ -11,6 +11,9 @@ describe('service: Pkmn Info', function() {
     $httpBackend.when('GET', mockPkmn.endPoint.byId).respond(mockPkmn.results.id);
     $httpBackend.when('GET', mockPkmn.endPoint.byName).respond(mockPkmn.results.name);
 
+    $httpBackend.when('GET', mockTypes.endPoint.byName).respond(mockTypes.results.poison);
+    $httpBackend.when('GET', mockTypes.endPoint.byId).respond(mockTypes.results.electric);
+
     infoServices = _infoServices_;
   }));
 
@@ -27,5 +30,11 @@ describe('service: Pkmn Info', function() {
     expect($httpBackend.flush).not.toThrow();
   });
 
-  it('should get pkmn by id');
+  it('should hit pkmn type by name/id endpoint', function () {
+    infoServices.getTypeByName('poison');
+    expect($httpBackend.flush).not.toThrow();
+
+    infoServices.getTypeByName('2');
+    expect($httpBackend.flush).not.toThrow();
+  });
 });
