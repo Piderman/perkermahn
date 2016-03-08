@@ -1,6 +1,6 @@
 var rEndpoint = {
   all :/pokemon\?limit/,
-  byName : /pokemon\/blastoise/,
+  byName : /pokemon\/gastly/,
   byId : /pokemon\/\d+$/,
   fail : /pokemon\/canta-nope$/
 };
@@ -24,10 +24,11 @@ var pkmnResults = {
     ]
   },
   byName: {
-    "id": 9,
-    "name": "blastoise",
+    "id": 92,
+    "name": "gastly",
     "types": [
-      {"slot": 1, "type": {"name": "water"} }
+      {"slot": 2, "type": {"name": "poison"} },
+      {"slot": 1, "type": {"name": "ghost"} }
     ]
   },
   byId: {

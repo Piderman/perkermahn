@@ -33,8 +33,10 @@ describe('ctrl: oppenentController', function() {
     $httpBackend.when('GET', mockPkmn.endPoint.fail).respond(mockPkmn.results.fail);
 
     // effectiveness
-    $httpBackend.when('GET', mockTypes.endPoint.water).respond(mockTypes.results.water);
-    $httpBackend.when('GET', mockTypes.endPoint.normal).respond(mockTypes.results.normal);
+    $httpBackend.when('GET', mockTypes.endPoint.electric).respond(mockTypes.results.electric);
+    // $httpBackend.when('GET', mockTypes.endPoint.normal).respond(mockTypes.results.normal);
+    $httpBackend.when('GET', mockTypes.endPoint.poison).respond(mockTypes.results.poison);
+    $httpBackend.when('GET', mockTypes.endPoint.ghost).respond(mockTypes.results.ghost);
     $controller = _$controller_;
 
     ctrl = $controller('opponentController', {
@@ -49,12 +51,12 @@ describe('ctrl: oppenentController', function() {
   });
 
   it('should load oppenent by name', function () {
-    $scope.getOpponentInfo('blastoise');
+    $scope.getOpponentInfo('gastly');
     $httpBackend.flush();
 
-    expect($scope.opponent.id).toBe(9);
+    expect($scope.opponent.id).toBe(92);
     expect($scope.opponent.name).toBeTruthy(true);
-    expect($scope.opponent.types.length).toBeGreaterThan(0);
+    expect($scope.opponent.types.length).toBe(2);
 
     $scope.opponent = {};
     $scope.getOpponentInfo('canta-nope');
@@ -69,32 +71,28 @@ describe('ctrl: oppenentController', function() {
     expect($scope.opponent.id).toBeTruthy();
     expect($scope.opponent.name).toBe('pikachu');
     expect($scope.opponent.types.length).toBeGreaterThan(0);
+
   });
 
-  it('should show oppenent type effectiveness', function() {
-    ctrl.getTypeEffectiveSummary('water');
+  it('should show oppenent summary for single-types', function() {
+    $scope.getOpponentInfo('25');
     $httpBackend.flush();
     expect($scope.opponent.doubleDamageTo.length).toBeGreaterThan(0);
-    expect($scope.opponent.halfDamageFrom.length).toBeGreaterThan(0);
-
-    ctrl.getTypeEffectiveSummary('normal');
-    $httpBackend.flush();
-
-    expect($scope.opponent.doubleDamageTo.length).toBe(0);
-    expect($scope.opponent.halfDamageFrom.length).toBe(0);
-  });
-
-  it('should remove my type from effectiveness');
-
-  it('should work for multiple type pokemon');
-
-
-  it('should show oppenent type weaknesses', function (){
-    ctrl.getOppenentWeaknessSummary('water');
-    $httpBackend.flush();
+    expect($scope.opponent.halfDamageTo.length).toBeGreaterThan(0);
+    expect($scope.opponent.noDamageTo.length).toBeGreaterThan(0);
 
     expect($scope.opponent.doubleDamageFrom.length).toBeGreaterThan(0);
-    expect($scope.opponent.halfDamageTo.length).toBeGreaterThan(0);
-    expect($scope.opponent.noDamageTo.length).toBe(0);
+    expect($scope.opponent.halfDamageFrom.length).toBeGreaterThan(0);
+    expect($scope.opponent.noDamageFrom.length).not.toBeNull();
+  });
+
+  it('should show oppenent summary by for dual-types', function(){
+    $scope.getOpponentInfo('gastly');
+    $httpBackend.flush();
+
+    expect($scope.opponent.types.length).toBe(2);
+
+    // should combine the arrays, separately are 2 and 5
+    expect($scope.opponent.halfDamageFrom.length).toBeGreaterThan(5);
   });
 });
