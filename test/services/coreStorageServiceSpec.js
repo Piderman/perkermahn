@@ -34,5 +34,15 @@ describe('service: coreStorage', function() {
     expect($httpBackend.flush).toThrow();
   });
 
-  it('should call api when there is no localStorage');
+  it('should call api when there is no localStorage', function(){
+    var result = coreStorage.getAllPkmn();
+    expect($httpBackend.flush).not.toThrow();
+
+    // additional resquests shouldn't hit API endpoint
+    // note: not testing .then() $scope update, that is for controller
+    var additionalCall = coreStorage.getAllPkmn();
+    expect($httpBackend.flush).toThrow();
+    expect(additionalCall[0].name).toBe('bulbasaur');
+    expect(additionalCall.length).toBeGreaterThan(9);
+  });
 });
