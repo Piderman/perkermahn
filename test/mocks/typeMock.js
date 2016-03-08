@@ -1,6 +1,6 @@
 var rEndpoint = {
+  byId : /type\/\d/,
   electric :/type\/electric/,
-  // normal : /type\/normal/,
   poison : /type\/poison/,
   ghost : /type\/ghost/
 };

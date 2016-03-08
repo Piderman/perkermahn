@@ -11,7 +11,7 @@ describe('service: Pkmn Info', function() {
     $httpBackend.when('GET', mockPkmn.endPoint.byId).respond(mockPkmn.results.id);
     $httpBackend.when('GET', mockPkmn.endPoint.byName).respond(mockPkmn.results.name);
 
-    $httpBackend.when('GET', mockTypes.endPoint.byName).respond(mockTypes.results.poison);
+    $httpBackend.when('GET', mockTypes.endPoint.poison).respond(mockTypes.results.poison);
     $httpBackend.when('GET', mockTypes.endPoint.byId).respond(mockTypes.results.electric);
 
     infoServices = _infoServices_;
