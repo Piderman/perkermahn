@@ -6,6 +6,8 @@ describe('service: coreStorage', function() {
   beforeEach(module('pkmn'));
 
   beforeEach(inject(function(_coreStorage_, _$httpBackend_) {
+    localStorage.removeItem('PKMN');
+
     $httpBackend = _$httpBackend_;
     $httpBackend.when('GET', mockPkmn.endPoint.all).respond(mockPkmn.results.all);
 
@@ -19,25 +21,18 @@ describe('service: coreStorage', function() {
     $httpBackend.verifyNoOutstandingRequest();
   });
 
-  it('should get pkmn from local storage'/*, function() {
-    localStorage.setItem('PKMN', '[{"name": "localmon"}]');
+  it('should get pkmn from local storage', function(){
+    localStorage.setItem('PKMN', '[{"name": "squirtle"}, {"name": "wartortle"}, {"name": "blastoise"} ]');
     var result = coreStorage.getAllPkmn();
 
-    expect(result).not.toBeUndefined();
-    expect(result[0].name).toBe('localmon');
-  }*/);
+    expect(Array.isArray(result)).toBe(true);
+    expect(result[2].name).toBe('blastoise');
 
-  // todo: move to core controller
-  // it('should hit api if no local storage', function() {
-  //   expect(localStorage.PKMN).toBeUndefined();
-  //   coreStorage.getAllPkmn();
-  //   $httpBackend.flush();
+    // should still be from new fake local
+    var additionalCall = coreStorage.getAllPkmn();
+    expect(additionalCall[0].name).toBe('squirtle');
+    expect($httpBackend.flush).toThrow();
+  });
 
-  //   // even though storage has updated, it seems we need
-  //   // to call again to get result
-  //   var result = coreStorage.getAllPkmn();
-
-  //   expect(localStorage.PKMN).not.toBeUndefined();
-  //   expect(result[1].name).toBe('ivysaur');
-  // });
+  it('should call api when there is no localStorage');
 });
