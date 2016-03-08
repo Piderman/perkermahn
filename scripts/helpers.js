@@ -6,6 +6,7 @@ hexo.on('generateBefore', function(){
   data = hexo.locals.get('data');
 });
 
+
 // eg getAllMoveTypeStats('weak', 'max').title
 hexo.extend.helper.register('getAllMoveTypeStats', function(type, minOrMax){
   var TYPES = data.pokemonTypes;

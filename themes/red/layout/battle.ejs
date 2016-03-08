@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= page.title %></title>
+  <style>
+  .row {
+    display: flex;
+    flex-direction: row
+  }
+
+  .col {
+
+  }
+  </style>
+</head>
+<body data-ng-app="pkmn">
+  <!-- list the thing -->
+  <div data-ng-controller="opponentController">
+    <h2>Search</h2>
+    <label for="oppenent">Oppenent:</label>
+    <input id="oppenent"
+      data-ng-model="searchName"
+      data-ng-model-options="{ debounce: 300 }"
+    >
+    <ol data-ng-if="searchName">
+      <li data-ng-repeat="pkmn in PKMN | filter:{name: searchName}"
+        data-ng-click="getOpponentInfo(pkmn.name)"
+      >
+        {{pkmn.name}}
+      </li>
+    </ol>
+
+    <hr>
+
+    <label for="type">Type:</label>
+    <input id="type"
+      data-ng-model="searchType"
+      data-ng-model-options="{ debounce: 300 }"
+    >
+    <ol data-ng-if="searchType">
+      <li data-ng-repeat="type in TYPES | filter:searchType"
+        data-ng-click="getTypeSummary(type)"
+      >
+        {{type}}
+      </li>
+    </ol>
+
+
+    <div>
+      <header>
+        <h2>{{opponent.name}}</h2>
+        <div class="meta">
+          {{typeLabel}}, #{{opponent.id}}
+        </div>
+      <img data-ng-src="{{opponent.sprite}}" alt="">
+      </header>
+
+      <div class="row">
+        <div class="col">
+          <h3>Strong attack</h3>
+          <ol>
+            <li data-ng-repeat="type in opponent.doubleDamageTo track by $index">
+              {{type}}
+            </li>
+          </ol>
+          <h3>Strong defence</h3>
+          <ol>
+            <li data-ng-repeat="type in opponent.halfDamageFrom track by $index">
+              {{type}}
+            </li>
+          </ol>
+        </div>
+
+        <div class="col">
+          <h3>Weak attack</h3>
+          <ol>
+            <li data-ng-repeat="type in opponent.doubleDamageFrom track by $index">
+              {{type}}
+            </li>
+          </ol>
+          <h3>Weak defence</h3>
+          <ol>
+            <li data-ng-repeat="type in opponent.doubleDamageFrom track by $index">
+              {{type}}
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/assets/js/vendor.js"></script>
+  <script src="/assets/js/app.js"></script>
+</body>
+</html>
