@@ -1,0 +1,40 @@
+<h1>Type Information</h1>
+<h2>Stats By Move Type</h2>
+<dl>
+  <dt>Most Effective</dt>
+  <dd><%= getAllMoveTypeStats('effective', 'max').title %></dd>
+  <dd>Against <%= getAllMoveTypeStats('effective', 'max').count %> types</dd>
+  <dt>Least Effective</dt>
+  <dd><%= getAllMoveTypeStats('effective', 'min').title %></dd>
+  <dd>Against <%= getAllMoveTypeStats('effective', 'min').count %> types</dd>
+  <dt>Most Vunerable</dt>
+  <dd><%= getAllMoveTypeStats('weak', 'max').title %></dd>
+  <dd>Against <%= getAllMoveTypeStats('weak', 'max').count %> types</dd>
+  <dt>Least Vunerable</dt>
+  <dd><%= getAllMoveTypeStats('weak', 'min').title %></dd>
+  <dd>Against <%= getAllMoveTypeStats('weak', 'min').count %> types</dd>
+  <dt>Most Useless (no effect)</dt>
+  <dd><%= getAllMoveTypeStats('useless', 'max').title %></dd>
+  <dd>Against <%= getAllMoveTypeStats('useless', 'max').count %> types</dd>
+  <dt>Least Useless (no effect)</dt>
+  <dd><%= getAllMoveTypeStats('useless', 'min').title %></dd>
+  <dd>Against <%= getAllMoveTypeStats('useless', 'min').count %> types</dd>
+</dl>
+<% site.data.pokemonTypes.forEach(function(type){ %>
+
+<h2><%= type.title %></h2>
+<dl>
+  <dt>Effective against: <%= type.effective.length %></dt>
+  <% type.effective.forEach(function(nestedType){ %>
+  <dd><%= nestedType %></dd>
+  <% }) %>
+  <dt>Weak against: <%= type.weak.length %></dt>
+  <% type.weak.forEach(function(nestedType){ %>
+  <dd><%= nestedType %></dd>
+  <% }) %>
+  <dt>useless against: <%= type.useless.length %></dt>
+  <% type.useless.forEach(function(nestedType){ %>
+  <dd><%= nestedType %></dd>
+  <% }) %>
+</dl>
+<% }) %>

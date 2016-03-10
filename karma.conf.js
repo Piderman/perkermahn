@@ -16,6 +16,7 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       // dependencies
+      'bower_components/lodash/lodash.js',
       'bower_components/angular/angular.min.js',
       'bower_components/angular-sanitize/angular-sanitize.min.js',
       'bower_components/angular-animate/angular-animate.min.js',
@@ -26,6 +27,7 @@ module.exports = function(config) {
       'themes/red/source/_app/js/**/!(app).js',
 
       // tests
+      'test/mocks/*.js',
       'test/**/*[sS]pec.js'
     ],
 

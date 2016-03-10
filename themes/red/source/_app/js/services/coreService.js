@@ -16,7 +16,7 @@ angular.module('Services')
         method: 'GET',
         url: API_ROUTE + 'pokemon',
         params: param
-      })
+      });
     };
 
     var getPkmnFromLocal = function() {
