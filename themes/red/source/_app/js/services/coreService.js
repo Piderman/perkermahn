@@ -23,6 +23,10 @@ angular.module('Services')
       return JSON.parse(localStorage.PKMN);
     };
 
+    var getPkmnPartyFromLocal = function() {
+      return JSON.parse(localStorage.PKMN_party);
+    };
+
     this.getAllPkmn = function() {
       var PKMN = localStorage.PKMN;
 
@@ -39,6 +43,17 @@ angular.module('Services')
 
       } else {
         return getPkmnFromLocal();
+      }
+    };
+
+
+    this.getParty = function() {
+      var PKMN_party = localStorage.PKMN_party;
+
+      if (!PKMN_party) {
+
+      } else {
+        return getPkmnPartyFromLocal();
       }
     };
   }]);

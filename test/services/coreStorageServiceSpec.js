@@ -45,4 +45,15 @@ describe('service: coreStorage', function() {
     expect(additionalCall[0].name).toBe('bulbasaur');
     expect(additionalCall.length).toBeGreaterThan(9);
   });
+
+  it('should get pkmn party from local storage', function() {
+    localStorage.setItem('PKMN_party', '[{"name" : "eevee"}, {"name" : "vaporeon"}]');
+    var result = coreStorage.getParty();
+    expect($httpBackend.flush).toThrow();
+
+    expect(result.length).not.toBe(null);
+    expect(result[0].name).toBe('eevee');
+  });
+
+  it('should resquest pkmn party');
 });
