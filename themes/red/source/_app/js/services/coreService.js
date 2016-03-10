@@ -19,6 +19,14 @@ angular.module('Services')
       });
     };
 
+    // do we need this?
+    var getPkmnPartyFromRequest = function() {
+      return $http({
+        method: 'GET',
+        url: '/data/party'
+      });
+    };
+
     var getPkmnFromLocal = function() {
       return JSON.parse(localStorage.PKMN);
     };
@@ -51,6 +59,13 @@ angular.module('Services')
       var PKMN_party = localStorage.PKMN_party;
 
       if (!PKMN_party) {
+        getPkmnPartyFromRequest()
+          .then(function(response) {
+            var party = JSON.stringify(response.data);
+
+            localStorage.setItem('PKMN_party', party);
+            return getPkmnPartyFromLocal();
+          });
 
       } else {
         return getPkmnPartyFromLocal();

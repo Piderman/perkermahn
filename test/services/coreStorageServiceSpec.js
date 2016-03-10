@@ -7,9 +7,13 @@ describe('service: coreStorage', function() {
 
   beforeEach(inject(function(_coreStorage_, _$httpBackend_) {
     localStorage.removeItem('PKMN');
+    localStorage.removeItem('PKMN_party');
 
     $httpBackend = _$httpBackend_;
     $httpBackend.when('GET', mockPkmn.endPoint.all).respond(mockPkmn.results.all);
+
+    // this only has one result
+    $httpBackend.when('GET', mockParty.endPoint).respond(mockParty.results);
 
     coreStorage = _coreStorage_;
   }));
@@ -38,12 +42,8 @@ describe('service: coreStorage', function() {
     var result = coreStorage.getAllPkmn();
     expect($httpBackend.flush).not.toThrow();
 
-    // additional resquests shouldn't hit API endpoint
-    // note: not testing .then() $scope update, that is for controller
     var additionalCall = coreStorage.getAllPkmn();
     expect($httpBackend.flush).toThrow();
-    expect(additionalCall[0].name).toBe('bulbasaur');
-    expect(additionalCall.length).toBeGreaterThan(9);
   });
 
   it('should get pkmn party from local storage', function() {
@@ -55,5 +55,11 @@ describe('service: coreStorage', function() {
     expect(result[0].name).toBe('eevee');
   });
 
-  it('should resquest pkmn party');
+  it('should resquest pkmn party', function() {
+    var apiCall = coreStorage.getParty();
+    expect($httpBackend.flush).not.toThrow();
+
+    var additionalCall = coreStorage.getParty();
+    expect($httpBackend.flush).toThrow();
+  });
 });
