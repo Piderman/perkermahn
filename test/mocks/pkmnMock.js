@@ -2,7 +2,8 @@ var rEndpoint = {
   all :/pokemon\?limit/,
   byName : /pokemon\/gastly/,
   byId : /pokemon\/\d+$/,
-  fail : /pokemon\/canta-nope$/
+  fail : /pokemon\/canta-nope$/,
+  image: /media\/sprites/
 };
 
 var pkmnResults = {
@@ -29,14 +30,20 @@ var pkmnResults = {
     "types": [
       {"slot": 2, "type": {"name": "poison"} },
       {"slot": 1, "type": {"name": "ghost"} }
-    ]
+    ],
+    "sprites" : {
+      "front_default" : "http://pokeapi.co/media/sprites/pokemon/92.png"
+    }
   },
   byId: {
     "id": 25,
     "name": "pikachu",
     "types": [
       {"slot": 1, "type": {"name": "electric"} }
-    ]
+    ],
+    "sprites" : {
+      "front_default" : "http://pokeapi.co/media/sprites/pokemon/25.png"
+    }
   },
   fail: {
     "detail": "Not found."

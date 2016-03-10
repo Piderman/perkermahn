@@ -32,6 +32,8 @@ describe('ctrl: oppenentController', function() {
     $httpBackend.when('GET', mockPkmn.endPoint.byId).respond(mockPkmn.results.byId);
     $httpBackend.when('GET', mockPkmn.endPoint.fail).respond(mockPkmn.results.fail);
 
+    $httpBackend.when('GET', mockPkmn.endPoint.image).respond();
+
     // effectiveness
     $httpBackend.when('GET', mockTypes.endPoint.electric).respond(mockTypes.results.electric);
     $httpBackend.when('GET', mockTypes.endPoint.poison).respond(mockTypes.results.poison);
@@ -71,6 +73,13 @@ describe('ctrl: oppenentController', function() {
     expect($scope.opponent.name).toBe('pikachu');
     expect($scope.opponent.types.length).toBeGreaterThan(0);
 
+  });
+
+  it('should show the image', function(){
+    $scope.getOpponentInfo('25');
+    $httpBackend.flush();
+
+    expect($scope.opponent.sprite).not.toBe(null);
   });
 
   it('should show oppenent summary for single-types', function() {

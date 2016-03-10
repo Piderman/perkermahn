@@ -34,8 +34,7 @@ angular.module('Pokemon')
         $scope.opponent.name = result.name;
         $scope.opponent.types = _.map(result.types, 'type.name');
         $scope.typeLabel = $scope.opponent.types.join(', ');
-        // $scope.opponent.sprite = result.sprites.front_default;
-
+          $scope.opponent.sprite = result.sprites.front_default;
 
         // self.getTypeEffectiveSummary($scope.opponent.types[0]);
         // self.getOppenentWeaknessSummary($scope.opponent.types[0]);
