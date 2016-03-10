@@ -62,7 +62,7 @@ describe('ctrl: oppenentController', function() {
     $scope.opponent = {};
     $scope.getOpponentInfo('canta-nope');
     $httpBackend.flush();
-    expect($scope.opponent.name).toBeUndefined();
+    expect($scope.opponent).toBe(null);
   });
 
   it('should load oppenent by ID', function () {
